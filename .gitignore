@@ -1,0 +1,4 @@
+*.csv
+*.db
+db_test.rb
+

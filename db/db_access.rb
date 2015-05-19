@@ -49,13 +49,13 @@ module DataBase
     def c_word_add(name,surface,num)
       uid = get_user_id(name)
       if uid == nil
-        $db.execute("insert into users values(?,?)",[naem,num])
+        $db.execute("insert into users values(?,?)",[name,num])
         uid = get_user_id(name)
       end
       wid = get_word_id(surface)
       if wid == nil
         $db.execute("insert into words values(?)",[surface])
-        wid = get_word_id
+        wid = get_word_id(surface)
       end
       $db.execute("update users set wc = wc + ? where rowid = ?",[num,uid])
       $db.execute("update wordcounts set num = num + ? where user = ? and word = ?",[num,uid,wid])

@@ -43,7 +43,7 @@ module TwitterAPI
           config_file['oauth_token'],
           config_file['oauth_token_secret']
         )
-        BotLog.message.debug 'TwitterAPI init'
+   #     BotLog.message.debug 'TwitterAPI init'
     end
     def connect_stream
       https = Net::HTTP.new(TWEET_STREAM.host,TWEET_STREAM.port)
@@ -73,7 +73,7 @@ module TwitterAPI
               begin
                 buf.sub!(line,"")
                 line.strip!
-                yield(Status.new(JSON.parse(line))) rescue next
+                yield(Status.new(JSON.parse(line))) #rescue next
               rescue=>e
                 puts e.message
               end
@@ -86,7 +86,7 @@ module TwitterAPI
       @@client.user(user_name)
     end
     def update(text,id)
-      BotLog.message.debug response = @@access_token.post('https://api.twitter.com/1.1/statuses/update.json',{'status'=>text,'in_reply_to_status_id'=>id})
+      response = @@access_token.post('https://api.twitter.com/1.1/statuses/update.json',{'status'=>text,'in_reply_to_status_id'=>id})
       Status.new(JSON.parse(response.body)) rescue response
     end
   end

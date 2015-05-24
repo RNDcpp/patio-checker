@@ -12,7 +12,7 @@ module DataBase
     def get_word_id(surface)
       ret = nil
       if(u=$db.get_first_row("select ROWID from words where surface = ?",[surface]))
-        p ret = u[0]
+        ret = u[0]
       end
       return ret
     end
@@ -21,7 +21,7 @@ module DataBase
       wid = get_word_id(surface)
       ret = 1
       if wordc = $db.get_first_row("select * from wordcounts where word = ? and user = ?",[wid,uid])
-        p ret += wordc[2]
+        ret += wordc[2]
       end
       return ret
     end
@@ -58,7 +58,11 @@ module DataBase
         wid = get_word_id(surface)
       end
       $db.execute("update users set wc = wc + ? where rowid = ?",[num,uid])
-      $db.execute("update wordcounts set num = num + ? where user = ? and word = ?",[num,uid,wid])
+      if($db.get_first_row("select * from wordcounts where user = ? and word = ?",[uid,wid])!=nil)
+        $db.execute("update wordcounts set num = num + ? where user = ? and word = ?",[num,uid,wid])
+      else
+        $db.execute("insert into wordcounts values(?,?,?)",[wid,uid,num])
+      end
     end
   end
 end

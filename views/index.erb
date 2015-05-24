@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>ぱちお度診断</title>
+</head>
+<body>
+<%=@doc%>
+<p>
+<h1>あなたのぱちお度は</h1>
+</p>
+<h2>
+<span><%=@point%>%です。</span>
+</h2>
+<form action="/" method = "get">
+<p>
+入力：<br>
+<textarea name="doc" rows="4" cols="40"></textarea>
+</p>
+<p>
+<input type="submit" value="診断">
+</form>
+</body>
+</html>

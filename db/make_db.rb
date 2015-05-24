@@ -19,7 +19,7 @@ db.execute("create table words (surface vchar(32) primary key);")
 ARGV.each do |arg|
   a=dbo[arg].get_first_row("select num from wcount")[0].to_i
   db.execute("insert into users values( ? , ? )",arg,a)
-  a_p = db.get_first_row("select rowid from users where name == ?",ARGV[0])[0].to_i
+  a_p = db.get_first_row("select rowid from users where name == ?",arg)[0].to_i
   dbo[arg].execute("select surface,num from pword").each do |t|
     p t
     p t[0]
@@ -34,8 +34,8 @@ ARGV.each do |arg|
   end
 end
 
-p user = db.get_first_row("select ROWID from users where name = ? ",ARGV[0])[0]
-p word = db.get_first_row("select ROWID from words where surface = ?","今日")[0]
+p user = db.get_first_row("select ROWID from users where name = ? ",ARGV[1])[0]
+p word = db.get_first_row("select ROWID from words where surface = ?","DTM")[0]
 p db.execute("select * from wordcounts")
 p db.get_first_row("select * from wordcounts where word = ? and user = ?",word,user)
 

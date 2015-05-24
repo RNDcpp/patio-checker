@@ -12,29 +12,41 @@ class BaysianFilter
         words << word.surface
       end
     end
-    cat_wc = DataBase.wc(cat).to_f
-    base_wc = DataBase.u_wc(cat).to_f 
+    p cat_wc = DataBase.wc(cat).to_f
+    p base_wc = DataBase.u_wc(cat).to_f 
     document_wc = base_wc.to_f+cat_wc
     p_cat = Math.log(cat_wc/document_wc)
     p_base = Math.log(base_wc/document_wc)
     
     p_cat_doc = 0
     p_base_doc = 0
+    p_doc = 0
+    probs = Array.new
     words.each do |word|
-      p word
-      p cat_num = DataBase.c_word(cat,word).to_f rescue (cat_num = 1.0)
-      p p_cat_word = Math.log(cat_num/cat_wc)
-      p_cat_doc += p_cat_word
-      p base_num = DataBase.u_c_word(cat,word).to_f rescue (base_num = 1.0)
-      p p_base_word = Math.log(base_num/base_wc)
-      p_base_doc += p_base_word
+      print "#{word}:"
+      c_wnum = 2*DataBase.c_word(cat,word).to_f #rescue (c_wnum = 0)
+      b_wnum = DataBase.u_c_word(cat,word).to_f #rescue (b_wnum = 0)
+      p ""
+      p c_wnum||=0
+      p b_wnum||=0
+      p b_wnum/base_wc
+      p 'probability'
+      p p_cat_word = ([(c_wnum/cat_wc),1.0].min)/(([c_wnum/cat_wc,1].min)+([b_wnum/base_wc,1].min))
+      probs << [p_cat_word,0.99].min
     end
-    puts "p_cat:#{p_cat},p_cat_doc:#{p_cat_doc},p_base_doc:#{p_base},p_base_doc#{p_base_doc}"
-    a = Math.exp(p_cat_doc + p_cat - (p_cat_doc + p_base_doc))
-    b = Math.exp(p_base_doc + p_base - (p_cat_doc + p_base_doc))
-    return a/(a+b)
+    probs.sort_by!{|p_word|-(p_word-0.5).abs}
+    prob_patio = 0
+    prob_non_patio = 0
+    probs.each_with_index do |pw,id|
+      p pw
+      prob_patio+=Math.log(pw)
+      prob_non_patio+=Math.log(1-pw)
+      break if id >= 15
+    end
+    p_patio = Math.exp(prob_patio)/(Math.exp(prob_patio)+Math.exp(prob_non_patio))
+    #puts "p_cat:#{p_cat},p_cat_doc:#{p_cat_doc},p_base_doc:#{p_base},p_base_doc#{p_base_doc}"
+    #b = Math.exp(p_base_doc + p_base - (p_doc))
+    return p_patio
   end
 end
-filter = BaysianFilter.new
-puts "あなたの#{ARGV[0]}度は\n#{filter.parse(ARGV[1],"#{ARGV[0]}")*100}%"
 

@@ -24,7 +24,7 @@ class BaysianFilter
     probs = Array.new
     words.each do |word|
       print "#{word}:"
-      c_wnum = 2*DataBase.c_word(cat,word).to_f #rescue (c_wnum = 0)
+      c_wnum = 3*DataBase.c_word(cat,word).to_f #rescue (c_wnum = 0)
       b_wnum = DataBase.u_c_word(cat,word).to_f #rescue (b_wnum = 0)
       p ""
       p c_wnum||=0
@@ -41,7 +41,7 @@ class BaysianFilter
       p pw
       prob_patio+=Math.log(pw)
       prob_non_patio+=Math.log(1-pw)
-      break if id >= 15
+      break if id >= 8
     end
     p_patio = Math.exp(prob_patio)/(Math.exp(prob_patio)+Math.exp(prob_non_patio))
     #puts "p_cat:#{p_cat},p_cat_doc:#{p_cat_doc},p_base_doc:#{p_base},p_base_doc#{p_base_doc}"

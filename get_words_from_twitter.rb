@@ -25,10 +25,12 @@ if(line.text !~ /^RT/)
       #DataBase.get_user_id('others')
       #DataBase.get_word_id(surface)
       p DataBase.c_word('others',surface)
+      words.delete(surface)
     end
     wc = 0
     words = nil
-    words = Hash.new 
+    words = Hash.new
+    puts"-------------------------------------------------------------" 
   end
 end
 end

@@ -24,15 +24,15 @@ class BaysianFilter
     probs = Array.new
     words.each do |word|
       print "#{word}:"
-      c_wnum = 3*DataBase.c_word(cat,word).to_f #rescue (c_wnum = 0)
+      c_wnum = 2*DataBase.c_word(cat,word).to_f #rescue (c_wnum = 0)
       b_wnum = DataBase.u_c_word(cat,word).to_f #rescue (b_wnum = 0)
       p ""
       p c_wnum||=0
       p b_wnum||=0
       p b_wnum/base_wc
       p 'probability'
-      p p_cat_word = ([(c_wnum/cat_wc),1.0].min)/(([c_wnum/cat_wc,1].min)+([b_wnum/base_wc,1].min))
-      probs << [p_cat_word,0.99].min
+      p p_cat_word = ((Math.log(cat_wc))/Math.log(cat_wc+base_wc))*([(c_wnum/cat_wc),1.0].min)/(([c_wnum/cat_wc,1].min)+([b_wnum/base_wc,1].min))
+      probs << [[p_cat_word,0.99].min,0.01].max
     end
     probs.sort_by!{|p_word|-(p_word-0.5).abs}
     prob_patio = 0

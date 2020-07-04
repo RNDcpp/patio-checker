@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  mecab:
+    build: ./natto-grpc-server
+    ports:
+      - "8000:8000"
+  client:
+    build: ./client
+    volumes:
+      - ./client:/client

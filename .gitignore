@@ -1,6 +1,5 @@
 *.csv
 *.db
-*.yml
 db_test.rb
 .bundle
 vendor

@@ -4,10 +4,10 @@ services:
     build: ./natto-grpc-server
     ports:
       - "8000:8000"
-  client:
-    build: ./client
+  app:
+    build: ./app
     volumes:
-      - ./client:/client
+      - ./app:/app
   db:
     image: mysql:8.0
     env_file: ./config/mysql.env

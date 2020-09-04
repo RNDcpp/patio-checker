@@ -8,3 +8,11 @@ services:
     build: ./client
     volumes:
       - ./client:/client
+  db:
+    image: mysql:8.0
+    env_file: ./config/mysql.env
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./config/mysql/conf.d:/etc/mysql/conf.d
+      - ./db/mysql_data:/var/lib/mysql

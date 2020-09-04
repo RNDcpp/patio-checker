@@ -3,3 +3,5 @@
 db_test.rb
 .bundle
 vendor
+config/mysql.env
+db/mysql_data/*

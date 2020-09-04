@@ -6,6 +6,8 @@ services:
       - "8000:8000"
   app:
     build: ./app
+    ports:
+      - "1234:1234"
     volumes:
       - ./app:/app
   db:

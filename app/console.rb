@@ -2,10 +2,10 @@ require 'sinatra'
 require 'json'
 require_relative 'baysian_filter'
 class Console<Sinatra::Base
-$filter = BaysianFilter.new
-set :bind, '127.0.0.1'
-set :port, 2345
-#set :environment, :production 
+  $filter = BaysianFilter.new
+  set :bind, '0.0.0.0'
+  set :port, 1234
+  set :environment, :production
   get '/' do
     erb :index
   end

@@ -1,4 +1,4 @@
 FROM ruby:2.7
 RUN git clone https://github.com/RNDcpp/mecab_services_pb
 WORKDIR /app
-CMD bundle install && /bin/sh
+CMD bundle install && bundle exec ruby run.rb

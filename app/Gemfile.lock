@@ -6,7 +6,6 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    ffi (1.13.1)
     google-protobuf (3.13.0)
     googleapis-common-protos-types (1.0.5)
       google-protobuf (~> 3.11)
@@ -15,8 +14,6 @@ GEM
       googleapis-common-protos-types (~> 1.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
-    natto (1.2.0)
-      ffi (>= 1.9.0)
     oauth (0.5.4)
     rack (2.2.3)
     rack-protection (2.0.8.1)
@@ -36,7 +33,6 @@ PLATFORMS
 DEPENDENCIES
   grpc
   mecab_services_pb!
-  natto
   oauth
   sinatra
   sqlite3

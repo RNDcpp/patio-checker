@@ -4,3 +4,7 @@ source 'https://rubygems.org'
 
 gem 'grpc'
 gem 'mecab_services_pb', path: '/mecab_services_pb'
+gem 'sinatra'
+gem 'natto'
+gem 'oauth'
+gem 'sqlite3'

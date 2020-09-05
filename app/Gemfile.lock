@@ -18,6 +18,7 @@ GEM
     rack (2.2.3)
     rack-protection (2.0.8.1)
       rack
+    rake (13.0.1)
     ruby2_keywords (0.0.2)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
@@ -34,6 +35,7 @@ DEPENDENCIES
   grpc
   mecab_services_pb!
   oauth
+  rake
   sinatra
   sqlite3
 

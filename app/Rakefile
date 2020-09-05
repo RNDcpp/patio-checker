@@ -1,0 +1,7 @@
+require './console'
+task :default => :run
+
+desc "RUN Server"
+task :run do
+  Console.run!
+end

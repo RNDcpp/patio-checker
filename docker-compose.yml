@@ -6,11 +6,15 @@ services:
       - "8000:8000"
   app:
     build: ./app
+    env_file: ./config/mysql.env
     ports:
       - "1234:1234"
     volumes:
       - ./app:/app
     command: /bin/sh -c "bundle install && bundle exec rake"
+    depends_on:
+      - mecab
+      - db
   db:
     image: mysql:8.0
     env_file: ./config/mysql.env

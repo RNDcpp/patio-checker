@@ -1,7 +1,27 @@
+require './config/config'
 require './console'
+require 'active_record'
 task :default => :run
 
 desc "RUN Server"
 task :run do
   Console.run!
 end
+
+include ActiveRecord::Tasks
+
+db_dir = Config.root_path('./db')
+config_dir = Config.root_path('./config')
+
+# TODO: APP_ENVの代わりにRACK_ENVを使う
+DatabaseTasks.env = ENV['APP_ENV'] || 'development'
+DatabaseTasks.db_dir = db_dir
+DatabaseTasks.database_configuration = Config.load_yaml('./database.yml')
+DatabaseTasks.migrations_paths = File.join(db_dir, 'migrate')
+
+task :environment do
+  ActiveRecord::Base.configurations = DatabaseTasks.database_configuration
+  ActiveRecord::Base.establish_connection DatabaseTasks.env.to_sym
+end
+
+load 'active_record/railties/databases.rake'

@@ -1,0 +1,11 @@
+default: &default
+  hostname: db
+  adapter: mysql2
+  pool: 1
+  username: root
+  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
+  encoding: utf8mb4
+  collation: utf8mb4_bin
+development:
+  <<: *default
+  database: patio_development

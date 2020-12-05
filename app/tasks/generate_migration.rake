@@ -11,6 +11,14 @@ namespace :generate do
 
   AVAILABLE_ACTIONS = %w( create change ).freeze
 
+  class String
+    def to_snake
+      self.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+          .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+          .downcase
+    end
+  end
+
   def create_migration_file(action:, class_name:)
     raise "available actions are in #{AVAILABLE_ACTIONS}" unless AVAILABLE_ACTIONS.include?(action)
 
@@ -33,7 +41,7 @@ namespace :generate do
 
   def filename(action:, class_name:)
     time = Time.now.strftime("%Y%m%d%H%M%S")
-    [time, action, class_name.downcase].join('_') + '.rb'
+    [time, action, class_name.to_snake].join('_') + '.rb'
   end
 
   class MigrationContext

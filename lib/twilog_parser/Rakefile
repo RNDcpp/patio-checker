@@ -1,0 +1,7 @@
+require './twilog_parser'
+
+desc 'twilog_parser test'
+task :run do
+  instance = TwilogParser::Parser.new
+  instance.get('RND_png')
+end

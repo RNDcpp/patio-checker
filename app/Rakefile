@@ -10,7 +10,7 @@ end
 
 include ActiveRecord::Tasks
 
-db_dir = Config.root_path('./db')
+db_dir = Config.app_root_path('./db')
 config_dir = Config.root_path('./config')
 
 # TODO: APP_ENVの代わりにRACK_ENVを使う

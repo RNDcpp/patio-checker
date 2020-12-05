@@ -1,7 +1,7 @@
 class Change<%= migration_context.class_name %> < ActiveRecord::Migration[<%= migration_context.migration_version %>]
   def change
     reversible do |dir|
-      change_table <%= migration_context.table_name %> do |t|
+      change_table :<%= migration_context.table_name %> do |t|
         dir.up do
           # t.change :hoge
         end

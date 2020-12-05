@@ -1,5 +1,5 @@
 default: &default
-  hostname: db
+  host: db
   adapter: mysql2
   pool: 1
   username: root

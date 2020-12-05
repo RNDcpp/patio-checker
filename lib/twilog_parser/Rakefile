@@ -2,7 +2,11 @@ require './twilog_parser'
 
 desc 'twilog_parser test'
 task :run do
-  instance = TwilogParser::Parser.new
-  tweets = instance.get('RND_png')
-  tweets.dump_csv('RND_png.csv')
+  IO.readlines('screen_names').each do |line|
+    screen_name = line.chomp
+    instance = TwilogParser::Parser.new
+    tweets = instance.get(screen_name)
+    tweets.dump_csv("dist/#{screen_name}.csv")
+  end
+
 end

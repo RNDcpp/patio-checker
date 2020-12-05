@@ -25,3 +25,4 @@ task :environment do
 end
 
 load 'active_record/railties/databases.rake'
+load File.join(Config.app_root_path('tasks/generate_migration.rake'))

@@ -5,7 +5,7 @@ require 'mecab_services_pb'
 
 # add Natto::MeCabNode specified enum
 module Mecabgrpc
-  class ResposeNode
+  class ResponseNode
     # Normal MeCab node defined in the dictionary, c.f. `stat`.
     NOR_NODE = 0
     # Unknown MeCab node not defined in the dictionary, c.f. `stat`.

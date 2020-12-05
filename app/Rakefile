@@ -1,11 +1,17 @@
 require './config/config'
 require './console'
+require './cli'
 require 'active_record'
 task :default => :run
 
 desc "RUN Server"
 task :run do
   Console.run!
+end
+
+desc "RUN test"
+task :console do
+  CLI.cli
 end
 
 include ActiveRecord::Tasks

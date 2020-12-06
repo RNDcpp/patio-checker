@@ -1,5 +1,3 @@
-require'sqlite3'
-
 class BaysianFilter
   def initialize
     # @nat = Natto::MeCab.new
@@ -10,6 +8,8 @@ class BaysianFilter
   end
 
   def parse_old(text,cat)
+    
+  end
   #  words = Array.new
   #  @nat.parse(text) do |word|
   #    if (word.surface =~ /\S+/)and (word.surface !~ /(@.*|_.*|\..*|\/.*|:.*|\(.*|\/.*|\).*|#.*|%.*|\s)/)and((word.surface.length != 1)or(word.surface !~ /[0-9]|[a-z]|[A-Z]|[あ-ん]|[ア-ン]/)) and (word.feature =~ /(名詞|形容詞|動詞|形容動詞)/) and word.surface.length < 8

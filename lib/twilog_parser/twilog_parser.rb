@@ -4,10 +4,10 @@ require 'csv'
 
 module TwilogParser
   class Parser
-    def get(screen_name, limit: 100, sleep_sec: 2)
+    def get(screen_name, limit: 100, sleep_sec: 10, offset: 0)
       total_tweets = []
       prev_id = nil
-      limit.times do |i|
+      (offset...(offset + limit)).each do |i|
         sleep(sleep_sec)
         begin
           html = URI.open("http://twilog.org/#{screen_name}/nort-#{i+1}",'User-Agent'=>'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)') do |f|
@@ -22,7 +22,8 @@ module TwilogParser
         puts "#{screen_name} #{i+1}"
         doc = Nokogiri::HTML.parse(html,nil,'UTF-8')
         # title01
-        id = doc.xpath('.//*[@class = "tl-tweet"]')&.first&.attributes['id']&.value
+        attributes = doc.xpath('.//*[@class = "tl-tweet"]')&.first&.attributes
+        id = attributes && attributes['id']&.value
         break unless id
         break if prev_id == id
         prev_id = id

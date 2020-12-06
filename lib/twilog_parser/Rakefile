@@ -6,7 +6,7 @@ task :run do
     screen_name = line.chomp
     instance = TwilogParser::Parser.new
     tweets = instance.get(screen_name)
-    tweets.dump_csv("dist/#{screen_name}.csv")
+    tweets.dump_csv("dist/#{screen_name}.csv") if tweets.tweets.length > 100
   end
 
 end

@@ -33,3 +33,4 @@ end
 load 'active_record/railties/databases.rake'
 load File.join(Config.app_root_path('tasks/generate_migration.rake'))
 load File.join(Config.app_root_path('tasks/csv_load.rake'))
+load File.join(Config.app_root_path('tasks/generate_word_counts.rake'))

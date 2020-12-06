@@ -16,6 +16,8 @@ class Tweet < ActiveRecord::Base
         word_count.inclement!
         word.save!
       end
+      user.document_count += 1
+      user.save!
       counted = true
       save!
     end
@@ -28,8 +30,10 @@ class Tweet < ActiveRecord::Base
       words.each do |word|
         word_count = word.word_counts.find_by(user: user)
         word_count.declement!
+        word.destroy! if word.word_counts.count == 0
       end
-
+      user.document_count -= 1
+      user.save!
       counted = false
       save!
     end

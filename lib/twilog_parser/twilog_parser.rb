@@ -4,6 +4,27 @@ require 'csv'
 
 module TwilogParser
   class Parser
+    def get_user_list(limit: 10, offset: 0)
+      (offset...(offset + limit)).map do |i|
+        begin
+          puts i
+          sleep(10)
+          html = URI.open("http://twilog.org/user-list/#{i+1}",'User-Agent'=>'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)') do |f|
+            f.read
+          end
+          doc = Nokogiri::HTML.parse(html,nil,'UTF-8')
+          screen_names = doc.xpath('.//*[@class = "section-box01"]//ul//li/descendant::span[2]').map do |span|
+            span.text&.gsub('@', '')
+          end
+        rescue => e
+          puts 'Error Occured'
+          puts e.message
+          sleep(20)
+          continue
+        end
+      end.flatten.compact
+    end
+
     def get(screen_name, limit: 100, sleep_sec: 10, offset: 0)
       total_tweets = []
       prev_id = nil

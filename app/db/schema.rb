@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_105017) do
 
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "document_count"
+    t.integer "document_count", default: 0
     t.index ["name"], name: "index_users_on_name"
   end
 

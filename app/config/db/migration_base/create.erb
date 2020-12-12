@@ -1,0 +1,7 @@
+class Create<%= migration_context.class_name %> < ActiveRecord::Migration[<%= migration_context.migration_version %>]
+  def change
+    create_table :<%= migration_context.table_name %> do |t|
+      # t.integer :hoge
+    end
+  end
+end 

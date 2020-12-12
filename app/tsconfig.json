@@ -5,7 +5,8 @@
     "module": "es2015",
     "jsx": "react",
     "strict": true,
-
+    "baseUrl": "./frontend/ts",
+    "moduleResolution": "node",
   },
   "include": [
     "frontend/**/*"

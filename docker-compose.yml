@@ -1,5 +1,9 @@
 version: "3.8"
 services:
+  twilog-parser:
+    build: ./lib/twilog_parser
+    volumes:
+      - ./lib/twilog_parser:/app
   mecab:
     build: ./natto-grpc-server
     ports:

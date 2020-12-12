@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'rack/contrib'
 require 'active_record'
 require 'json'
 require './config/config'
@@ -11,6 +12,9 @@ Dir.glob(initializers_dir).each do |initializer|
 end
 
 class Console<Sinatra::Base
+
+  use Rack::PostBodyContentTypeParser
+
   $filter = BayesianFilter.new
   set :bind, '0.0.0.0'
   set :port, 1234

@@ -1,0 +1,36 @@
+require './config/config'
+require './console'
+require './cli'
+require 'active_record'
+task :default => :run
+
+desc "RUN Server"
+task :run do
+  Console.run!
+end
+
+desc "RUN test"
+task :console do
+  CLI.cli
+end
+
+include ActiveRecord::Tasks
+
+db_dir = Config.app_root_path('./db')
+config_dir = Config.root_path('./config')
+
+# TODO: APP_ENVの代わりにRACK_ENVを使う
+DatabaseTasks.env = ENV['APP_ENV'] || 'development'
+DatabaseTasks.db_dir = db_dir
+DatabaseTasks.database_configuration = Config.load_yaml('./database.yml')
+DatabaseTasks.migrations_paths = File.join(db_dir, 'migrate')
+
+task :environment do
+  ActiveRecord::Base.configurations = DatabaseTasks.database_configuration
+  ActiveRecord::Base.establish_connection DatabaseTasks.env.to_sym
+end
+
+load 'active_record/railties/databases.rake'
+load File.join(Config.app_root_path('tasks/generate_migration.rake'))
+load File.join(Config.app_root_path('tasks/csv_load.rake'))
+load File.join(Config.app_root_path('tasks/generate_word_counts.rake'))

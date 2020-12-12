@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  twilog-parser:
+    build: ./lib/twilog_parser
+    volumes:
+      - ./lib/twilog_parser:/app
+  mecab:
+    build: ./natto-grpc-server
+    ports:
+      - "8000:8000"
+  app:
+    build: ./app
+    env_file: ./config/mysql.env
+    ports:
+      - "1234:1234"
+    volumes:
+      - ./app:/app
+    command: /bin/sh -c "bundle install && bundle exec rake"
+    depends_on:
+      - mecab
+      - db
+  db:
+    image: mysql:8.0
+    env_file: ./config/mysql.env
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./config/mysql/conf.d:/etc/mysql/conf.d
+      - ./var/mysql_data:/var/lib/mysql

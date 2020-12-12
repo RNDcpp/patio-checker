@@ -1,6 +1,9 @@
 *.csv
 *.db
-*.yml
 db_test.rb
 .bundle
 vendor
+config/mysql.env
+var/mysql_data/*
+node_modules
+yarn-error.log

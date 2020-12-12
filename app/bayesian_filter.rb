@@ -1,4 +1,4 @@
-class BaysianFilter
+class BayesianFilter
   MIN_WORD_PROB = 0.00000000000000000000000000000000001
   MAX_PROB = 0.995
   MIN_PROB = 0.005

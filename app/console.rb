@@ -2,7 +2,7 @@ require 'sinatra'
 require 'active_record'
 require 'json'
 require './config/config'
-require_relative 'baysian_filter'
+require_relative 'bayesian_filter'
 
 #load initalizers
 initializers_dir = File.expand_path('./initializers/*', __FILE__)
@@ -11,7 +11,7 @@ Dir.glob(initializers_dir).each do |initializer|
 end
 
 class Console<Sinatra::Base
-  $filter = BaysianFilter.new
+  $filter = BayesianFilter.new
   set :bind, '0.0.0.0'
   set :port, 1234
   # set :environment, :production

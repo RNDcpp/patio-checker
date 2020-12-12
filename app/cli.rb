@@ -2,7 +2,7 @@ require 'sinatra'
 require 'active_record'
 require 'json'
 require './config/config'
-require_relative 'baysian_filter'
+require_relative 'bayesian_filter'
 
 #load initalizers
 Dir[Config.root_path('./initializers/*.rb')].each {|file| require file }

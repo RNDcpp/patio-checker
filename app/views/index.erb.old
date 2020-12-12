@@ -1,0 +1,79 @@
+<html>
+<head>
+	<title>ぱちお診断 v2</title>
+	<meta charset = 'utf-8'>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="robots" content="noarchive">
+	<meta name="author" content="RND.cpp">
+	<meta name = "description" content = "ぱちお診断は任意の文章に対してぱちお度を測定するWebアプリです。">
+	<meta name = 'keywords' content = "ぱちお,patioglass,twitter,単純ベイズフィルタ,naive bayse,RND">
+	<link rel="stylesheet" type="text/css" href="css/patio-checker.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script src=" http://platform.twitter.com/widgets.js"></script>
+	<script type="text/javascript" src="js/patio-checker.js"></script>
+
+</head>
+<body>
+	<div class="header">
+		<div class="c1">
+			<h3>ぱちお診断 ver.2.0</h3>
+		</div>
+		<div class="c2">
+			<div class="author">
+				<div class="icon">	
+					<img src="http://www.paper-glasses.com/api/twipi/rnd_cpp"alt="rnd">
+				</div>
+				<div class="text">
+					<div class="name">
+						作ったひと：	RND.cpp(<a href="https://twitter.com/RND_cpp">@RND_cpp</a>)
+					</div>
+				</div>
+				<div class = "clear"></div>			
+			</div>		
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class = "wrapper">
+		<div class="patio-volume clear"> 
+			<h2> あなたのぱちお度を診断してみよう！</h2>
+			<h2 id="result-text" hidden = "true"></h2>
+			<div class = "icon">
+				<img src="http://www.paper-glasses.com/api/twipi/patioglass/bigger" alt = "ぱちお">
+			</div>
+			<div class="text">
+				<div id="about">
+					<h3>ぱちお診断とは…</h3>
+					<p>
+						<p>ナイーブベイズフィルタリングのアルゴリズムを用いて実装されたぱちお判別システムです。</p>
+						<p>みんなのアイドルぱちお(<a href="https://twitter.com/patioglass">＠patioglass</a>)くんのツイートを訓練データとして<br>
+							入力された文章からぱちお度を算出します。</p>
+					</p>
+				</div>
+
+				<div id="result-point" hidden="true">
+					<h3>あなたのぱちお(<a href="https://twitter.com/patioglass">＠patioglass</a>)度は…</h3>
+					<div class="result-bar-container">
+						<div class="result-bar">
+						</div>
+					</div>
+					<div class="point-text">
+						<span class='point'></span>%です。
+					</div>
+				</div>
+			</div>
+			<div class = "clear"></div>
+			<form id="patio-form" action="/patio/check" method="post">
+				<h3>診断したい文章を入力</h3>
+				<textarea class="doc" name="doc" cols="32" rows"16"></textarea>
+				<button type="submit" value=""送信>診断する！</button>
+				<div class="clear"></div>
+			</form>
+		</div>
+		<div id="t_btn">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-text="" data-lang="ja" data-hashtags="ぱちお診断">ツイート</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		</div>
+		<div class = "clear"></div>			
+	</div>
+	</body>
+</html>

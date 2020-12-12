@@ -18,7 +18,7 @@ class Tweet < ActiveRecord::Base
       end
       user.document_count += 1
       user.save!
-      counted = true
+      self.counted = true
       save!
     end
   end
@@ -34,7 +34,7 @@ class Tweet < ActiveRecord::Base
       end
       user.document_count -= 1
       user.save!
-      counted = false
+      self.counted = false
       save!
     end
   end

@@ -1,56 +1,47 @@
 class BaysianFilter
+  MIN_WORD_PROB = 0.00000000000000000000000000000000001
+  MAX_PROB = 0.995
+  MIN_PROB = 0.005
   def initialize
     # @nat = Natto::MeCab.new
   end
   
-  def parse(text, cat)
-    1.0
-  end
+  def parse(text, screen_name)
+    user = User.find_by(name: screen_name)
+    all_category_word_count = WordCount.where(user: user).sum(:count)
+    all_base_word_count = WordCount.where.not(user: user).sum(:count)
+    base_document_count = User.where.not(id: user.id).sum(:document_count)
+    category_document_count = user.document_count
 
-  def parse_old(text,cat)
+    category_word_probs = []
+    base_word_probs = []
+    document_word_probs = []
+
+    MeCabClient.new.parse(text) do |node|
+      word = Word.find_or_initialize_from(node)
+      next unless word && word.persisted?
+      category_word_count = word.word_counts.find_by(user: user)&.count&.to_f || 0.0
+      base_word_count = word.word_counts.where.not(user: user).sum(:count)&.to_f || 0.0
+      category_word_probs << Math.log([category_word_count / all_category_word_count, MIN_WORD_PROB].max)
+      base_word_probs << Math.log([base_word_count / all_base_word_count, MIN_WORD_PROB].max)
+      document_word_probs << Math.log([(base_word_count + category_word_count)/(all_category_word_count + all_base_word_count), MIN_WORD_PROB].max)
+    end
+
+    log_category_prob = category_word_probs.sum
+    log_base_prob = base_word_probs.sum
+    log_document_prob = document_word_probs.sum
+
+    log_category_document_prob = Math.log(category_document_count) - Math.log(category_document_count + base_document_count)
+    log_base_document_prob = Math.log(base_document_count) - Math.log(category_document_count + base_document_count)
+
+    category_prob = Math.exp(log_category_document_prob + log_category_prob - log_document_prob)
+    base_prob = Math.exp(log_base_document_prob - log_document_prob + log_base_prob)
     
-  end
-  #  words = Array.new
-  #  @nat.parse(text) do |word|
-  #    if (word.surface =~ /\S+/)and (word.surface !~ /(@.*|_.*|\..*|\/.*|:.*|\(.*|\/.*|\).*|#.*|%.*|\s)/)and((word.surface.length != 1)or(word.surface !~ /[0-9]|[a-z]|[A-Z]|[あ-ん]|[ア-ン]/)) and (word.feature =~ /(名詞|形容詞|動詞|形容動詞)/) and word.surface.length < 8
-  #      words << word.surface
-  #    end
-  #  end
-  #  p cat_wc = DataBase.wc(cat).to_f
-  #  p base_wc = DataBase.u_wc(cat).to_f 
-  #  document_wc = base_wc.to_f+cat_wc
-  #  p_cat = Math.log(cat_wc/document_wc)
-  #  p_base = Math.log(base_wc/document_wc)
-  #  
-  #  p_cat_doc = 0
-  #  p_base_doc = 0
-  #  p_doc = 0
-  #  probs = Array.new
-  #  words.each do |word|
-  #    print "#{word}:"
-  #    c_wnum = 2*DataBase.c_word(cat,word).to_f #rescue (c_wnum = 0)
-  #    b_wnum = DataBase.u_c_word(cat,word).to_f #rescue (b_wnum = 0)
-  #    p ""
-  #    p c_wnum||=0
-  #    p b_wnum||=0
-  #    p b_wnum/base_wc
-  #    p 'probability'
-  #    p p_cat_word = ((Math.log(cat_wc))/Math.log(cat_wc+base_wc))*([(c_wnum/cat_wc),1.0].min)/(([c_wnum/cat_wc,1].min)+([b_wnum/base_wc,1].min))
-  #    probs << [[p_cat_word,0.99].min,0.01].max
-  #  end
-  #  probs.sort_by!{|p_word|-(p_word-0.5).abs}
-  #  prob_patio = 0
-  #  prob_non_patio = 0
-  #  probs.each_with_index do |pw,id|
-  #    p pw
-  #    prob_patio+=Math.log(pw)
-  #    prob_non_patio+=Math.log(1-pw)
-  #    break if id >= 8
-  #  end
-  #  p_patio = Math.exp(prob_patio)/(Math.exp(prob_patio)+Math.exp(prob_non_patio))
-  #  #puts "p_cat:#{p_cat},p_cat_doc:#{p_cat_doc},p_base_doc:#{p_base},p_base_doc#{p_base_doc}"
-  #  #b = Math.exp(p_base_doc + p_base - (p_doc))
-  #  return p_patio
+    prob = category_prob / (category_prob + base_prob)
+    prob = prob > MAX_PROB ? 1 : prob
+    prob = prob < MIN_PROB ? 0 : prob
+
+    prob
   end
 end
 

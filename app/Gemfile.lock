@@ -30,7 +30,6 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
-    oauth (0.5.4)
     rack (2.2.3)
     rack-protection (2.0.8.1)
       rack
@@ -41,7 +40,6 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
-    sqlite3 (1.4.2)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tzinfo (1.2.7)
@@ -56,10 +54,8 @@ DEPENDENCIES
   grpc
   mecab_services_pb!
   mysql2
-  oauth
   rake
   sinatra
-  sqlite3
 
 BUNDLED WITH
    2.1.4

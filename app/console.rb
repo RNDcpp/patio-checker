@@ -18,7 +18,7 @@ class Console<Sinatra::Base
   $filter = BayesianFilter.new
   set :bind, '0.0.0.0'
   set :port, 1234
-  # set :environment, :production
+  set :environment, ENV['APP_ENV'].to_sym
   get '/' do
     ActiveRecord::Base
     erb :index

@@ -22,7 +22,7 @@ end
 # utility for gRPC MeCab Server
 class MeCabClient
   def initialize
-    @stub = Mecabgrpc::MecabService::Stub.new('mecab:8000', :this_channel_is_insecure)
+    @stub = Mecabgrpc::MecabService::Stub.new(ENV['MECAB_URL'], :this_channel_is_insecure)
   end
 
   def parse(string)

@@ -10,7 +10,9 @@ services:
       - "8000:8000"
   app:
     build: ./app
-    env_file: ./config/mysql.env
+    env_file: 
+      - ./config/mysql.env
+      - ./config/application.env
     ports:
       - "1234:1234"
     volumes:

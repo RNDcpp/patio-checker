@@ -1,11 +1,14 @@
 default: &default
-  host: db
+  host: <%= ENV['MYSQL_HOST'] %>
   adapter: mysql2
   pool: 1
-  username: root
-  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
+  username: <%= ENV['MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_PASSWORD'] %>
   encoding: utf8mb4
   collation: utf8mb4_bin
+production:
+  <<: *default
+  database: patio_production
 development:
   <<: *default
   database: patio_development

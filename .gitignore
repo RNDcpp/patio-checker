@@ -7,3 +7,5 @@ config/mysql.env
 var/mysql_data/*
 node_modules
 yarn-error.log
+.ecr-prefix
+.ecr-region

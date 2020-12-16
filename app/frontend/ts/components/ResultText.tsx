@@ -48,6 +48,11 @@ font-size: 1.2em;
 margin: 0px 0px 0px 0px;
 `
 
+const Paragraph = styled.div`
+text-align: left;
+padding-left: 16px;
+`
+
 interface resultProps{
   visible: boolean,
   document: string,
@@ -77,12 +82,16 @@ export const ResultText: React.FC<resultProps> = (props) => {
       return(
         <div>
           <Title>ぱちお診断とは？</Title>
-          <p>
-						<p>ナイーブベイズフィルタリングのアルゴリズムを用いて実装されたぱちお判別システムです。</p>
-						<p>みんなのアイドルぱちお(<a href="https://twitter.com/patioglass">＠patioglass</a>)くんのツイートを訓練データとして<br/>
+          <Paragraph>
+						<Paragraph>
+              ナイーブベイズフィルタリングのアルゴリズムを用いて実装されたぱちお判別システムです。
+            </Paragraph>
+						<Paragraph>
+              みんなのアイドルぱちお(<a href="https://twitter.com/patioglass">＠patioglass</a>)くんのツイートを訓練データとして
+              <br/>
 							入力された文章からぱちお度を算出します。
-            </p>
-          </p>
+            </Paragraph>
+          </Paragraph>
         </div>
       )
     }

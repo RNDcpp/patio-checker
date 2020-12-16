@@ -8,8 +8,8 @@ class BayesianFilter
   
   def parse(text, screen_name)
     user = User.find_by(name: screen_name)
-    all_category_word_count = WordCount.where(user: user).sum(:count)
-    all_base_word_count = WordCount.where.not(user: user).sum(:count)
+    all_category_word_count = WordCount.where(user: user).sum(:count) + 1
+    all_base_word_count = WordCount.where.not(user: user).sum(:count) + 1
     base_document_count = User.where.not(id: user.id).sum(:document_count)
     category_document_count = user.document_count
 

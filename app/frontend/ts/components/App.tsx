@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { Header } from 'components/Header'
 import { ResultText } from 'components/ResultText'
+import { TweetButton } from 'components/TweetButton'
 
 const SubmitButton = styled.input`
 height: 3rem;
@@ -103,6 +104,7 @@ export const App: React.FC = () => {
             <TextInput name='doc' rows={3} cols={32} ref={register} onChange={() => { setPoint(0); setVisibleResult(false) }} />
             <SubmitButton type='submit' value='Submit' />
           </DocumentForm>
+          <TweetButton doc={document} point={point} />
         </Sheet>
       </Container>
     </div>

@@ -41,7 +41,7 @@ export const TweetButton: React.FC<tweetButtonProps> = (props) => {
   『${doc}』のぱちお度は${point}%でした。
   #ぱちお診断
   `
-  const url = `https://twitter.com/intent/tweet?url=${location.href}&text=${encodeURI(wrappedText(props.doc, props.point))}`
+  const url = `https://twitter.com/intent/tweet?url=https://ぱちお.com&text=${encodeURI(wrappedText(props.doc, props.point))}`
   return(
     <SharePane>
       <TBtn

@@ -38,9 +38,8 @@ border-color: rgba(255, 255, 255, 0.5);
 
 export const TweetButton: React.FC<tweetButtonProps> = (props) => {
   const wrappedText = (doc:string, point:number) => `『${doc}』のぱちお度は${point}%でした。
-  #ぱちお診断
   `
-  const url = `https://twitter.com/intent/tweet?url=https://ぱちお.com&text=${encodeURI(wrappedText(props.doc, props.point))}`
+  const url = `https://twitter.com/intent/tweet?url=${encodeURI('https://ぱちお.com')}&text=${encodeURI(wrappedText(props.doc, props.point))}&hashtags=${encodeURI('ぱちお診断')}`
   return(
     <SharePane>
       <TBtn
